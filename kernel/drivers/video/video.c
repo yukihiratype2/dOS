@@ -1,6 +1,6 @@
 #include "video.h"
 
-char canvas[320][200];
+static char canvas[320][200];
 
 void setBackgroundColor(base_color color) {
   for (int x = 0; x < 320; x++) {
@@ -30,8 +30,8 @@ void setCanvas() {
   }
 }
 
-void initCanvas() {
+char  (*initCanvas())[200] {
   setBackgroundColor(COL_WHITE);
   setCanvas();
+  return canvas;
 }
-

@@ -10,4 +10,4 @@ void drawRect(int x, int y, int width, int height, base_color fillColor);
 
 void setCanvas();
 
-void initCanvas();
+char  (*initCanvas())[200];

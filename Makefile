@@ -3,9 +3,11 @@ bl: boot/boot.asm
 os: bl
 	cd kernel && nasm -f elf entry.asm -o entry.o
 	cd kernel/drivers/video && x86_64-elf-gcc -m32 -ffreestanding -c video.c -o video.o
+	cd kernel/drivers/keyboard && x86_64-elf-gcc -m32 -ffreestanding -c keyboard.c -o keyboard.o
 	cd kernel/drivers/irq && x86_64-elf-gcc -m32 -ffreestanding -c irq.c -o irq.o
+	cd kernel/graphic && x86_64-elf-gcc -m32 -ffreestanding -c graphic.c -o graphic.o
 	cd kernel && x86_64-elf-gcc -m32 -ffreestanding -c kernel.c -o kernel.o
-	cd kernel && x86_64-elf-ld -melf_i386  -o kernel.bin -Ttext 0x9000 entry.o kernel.o drivers/video/video.o drivers/irq/irq.o  --oformat binary
+	cd kernel && x86_64-elf-ld -melf_i386  -o kernel.bin -Ttext 0x9000 entry.o kernel.o drivers/video/video.o drivers/irq/irq.o drivers/keyboard/keyboard.o graphic/graphic.o --oformat binary
 	cd kernel && cat kernel.bin zeros > k.bin
 
 assemb: os

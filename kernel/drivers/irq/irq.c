@@ -1,9 +1,8 @@
 #include "irq.h"
 #include "../../lib/stdint.h"
-#include "../video/video.h"
+#include "../../lib/helper.h"
+#include "../keyboard/keyboard.h"
 
-extern void outb();
-extern void write_port();
 
 struct IDT_entry{
 	unsigned short int offset_lowerbits;
@@ -63,12 +62,11 @@ void idt_init() {
 	idt_ptr[1] = idt_address >> 16 ;
 
   load_idt(idt_ptr);
-  outb(0x21, 0xfd);
 };
 
 
 void irq1_handler(void) {
-  //outb(0x20, 0x20); //EOI
-  setBackgroundColor(COL_GREEN);
+  write_port(0x20, 0x20); //EOI
+  kbd_int_handler();
 }
 
