@@ -1,0 +1,4 @@
+floppya: 1_44="os_img", status=inserted
+keyboard: type=mf, serial_delay=200, paste_delay=100000
+boot: floppy
+cpu: reset_on_triple_fault=0
